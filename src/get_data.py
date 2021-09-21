@@ -2,7 +2,6 @@
 # Process
 # Return dataframe
 import os
-from tkinter.ttk import Separator
 import yaml
 import pandas as pd
 import argparse

@@ -5,3 +5,6 @@ pandas
 pytest
 tox
 black
+flask
+numpy
+gunicorn

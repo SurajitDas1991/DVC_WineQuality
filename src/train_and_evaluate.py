@@ -21,6 +21,7 @@ def eval_metrics(actual, pred):
     r2 = r2_score(actual, pred)
     return rmse, mae, r2
 
+
 def train_and_evaluate(config_path):
     config = read_params(config_path)
     test_data_path = config["split_data"]["test_path"]
@@ -36,10 +37,7 @@ def train_and_evaluate(config_path):
     test_y = test[target]
     train_x = train.drop(target, axis=1)
     test_x = test.drop(target, axis=1)
-    lr = ElasticNet(
-        alpha=alpha,
-        l1_ratio=l1_ratio,
-        random_state=random_state)
+    lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=random_state)
     lr.fit(train_x, train_y)
     predicted_qualities = lr.predict(test_x)
     (rmse, mae, r2) = eval_metrics(test_y, predicted_qualities)
@@ -52,11 +50,7 @@ def train_and_evaluate(config_path):
     params_file = config["reports"]["params"]
 
     with open(scores_file, "w") as f:
-        scores = {
-            "rmse": rmse,
-            "mae": mae,
-            "r2": r2
-        }
+        scores = {"rmse": rmse, "mae": mae, "r2": r2}
         json.dump(scores, f, indent=4)
 
     with open(params_file, "w") as f:
@@ -71,7 +65,8 @@ def train_and_evaluate(config_path):
 
     joblib.dump(lr, model_path)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     args = argparse.ArgumentParser()
     args.add_argument("--config", default="params.yaml")
     parsed_args = args.parse_args()

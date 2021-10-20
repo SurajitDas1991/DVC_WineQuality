@@ -8,3 +8,5 @@ black
 flask
 numpy
 gunicorn
+mlflow
+urllib3
